@@ -112,6 +112,27 @@ input:focus,textarea:focus{outline:none;border-color:var(--f1);box-shadow:0 0 0 
 .sp.besvaret .nr{color:var(--f1)}
 .sp.besvaret .nr::after{content:"";width:6px;height:6px;border-radius:50%;background:var(--f1);margin-top:7px}
 .sp label{display:block;margin-bottom:10px;line-height:1.45}
+.pv{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 18px;margin:0 0 12px;background:#FFFEFB;border:1px solid var(--linje);border-radius:8px}
+.pv-ikon svg{width:52px;height:52px;display:block;border-radius:12px;box-shadow:0 6px 16px rgba(109,93,246,.25)}
+.pv .sw{width:44px;height:44px;border-radius:8px;display:block}
+.pv-tekst{font-size:14px;color:var(--graa);font-variant-numeric:tabular-nums}
+.pv-citat{margin:0;font-family:var(--display);font-size:22px;line-height:1.35;color:var(--blaek)}
+.pv-citat.pv-lille{font-size:18px}
+.pv-navn{margin:0;font-family:var(--tekst);font-weight:600;font-size:24px;letter-spacing:-.01em}
+.vchips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.vchip{font:inherit;font-size:14px;font-weight:400;padding:9px 16px;border:1px solid var(--linje);background:var(--kort);color:var(--blaek);border-radius:999px;cursor:pointer;transition:background .15s}
+.vchip:hover{background:#fff}
+.vchip[aria-pressed="true"]{background:var(--blaek);border-color:var(--blaek);color:var(--papir)}
+.vchip:focus-visible{outline:2px solid var(--f2);outline-offset:2px}
+.tidligere{margin-top:22px;padding:22px 24px;background:color-mix(in srgb,var(--sand) 50%,transparent);border-radius:8px}
+.tidligere p{margin:8px 0 12px;font-size:15px;color:var(--graa)}
+.tl-r{display:grid;grid-template-columns:170px minmax(0,1fr);gap:14px;padding:9px 0;border-top:1px solid var(--linje);font-size:15px}
+@media (max-width:540px){.tl-r{grid-template-columns:minmax(0,1fr);gap:2px}}
+.tl-l{font-weight:500}
+.tl-tom{color:var(--lysgraa);font-style:italic}
+.tidligere .tl-valg{margin:14px 0 0;font-size:14px}
+.tidligere .tl-valg b{color:var(--blaek);font-weight:500}
+.valgmaerke{display:inline-block;margin-left:6px;padding:1px 9px;border-radius:999px;background:var(--blaek);color:var(--papir);font-size:12px;font-weight:500}
 .hint{margin:-4px 0 12px;font-size:14px;line-height:1.5;color:var(--lysgraa);padding-left:12px;border-left:2px solid var(--sand)}
 .statusbar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-top:48px;padding-top:22px;border-top:1px solid var(--linje)}
 .gemt{font-size:13px;color:var(--lysgraa)}
@@ -212,10 +233,10 @@ const FASER = [
     ]},
   { id:"fase-2", nr:2, navn:"Enkelt koncept", farve:"--f2",
     titel:"Hvad tilbyder PictureBox, <span class='haand'>og hvordan fortæller I det?</span>",
-    kort:"Så kernen. Produktets kerne, det I siger nej til, og den historie kunderne skal møde.",
-    hvad:"Produktets kerne, det I siger nej til, og den historie og stemme, kunderne skal møde.",
+    kort:"Så kernen. Produktets kerne, jeres historie, og om jeres nuværende branding skal bevares, justeres eller ændres.",
+    hvad:"Produktets kerne, jeres historie og stemme, og hvordan jeres nuværende logo, farver og budskaber passer til den retning, I har valgt.",
     hvorfor:"Et produkt, der er nemt at forklare, er nemt at købe. Kernen skal kunne siges i én sætning, før den kan sælges.",
-    planen:"Kerneprodukt, pakker til hver kundetype og en brandplatform, I kan stå inde for.",
+    planen:"Kerneprodukt, pakker til hver kundetype og en klar beslutning om jeres branding: hvad der bevares, justeres og ændres.",
     afsnit:[
       {nr:4, titel:"Produkt og udvikling", hvorfor:"Det, kunderne faktisk bruger, viser hvor værdien ligger.", q:[
         ["4.1","Hvilken funktion er PictureBox' kerne, som alt andet bygger på?","Den ene ting, PictureBox ikke ville være PictureBox uden. Fx det fælles galleri, QR-koden eller engangskameraet."],
@@ -230,7 +251,20 @@ const FASER = [
         ["6.3","Er I klar til at vise jer selv som ansigter på PictureBox, fx på hjemmesiden og LinkedIn?","Folk stoler mere på mennesker end på apps. Det kan være et billede og et par linjer om jer på hjemmesiden."],
         ["6.4","Hvilke tre ord skal kunderne bruge om PictureBox?","Fx «nem», «personlig» og «tryg». Hvad skal folk sige til hinanden om PictureBox?"],
         ["6.5","Hvad må PictureBox aldrig sige eller gøre?","Fx at love noget, appen ikke kan, eller at lyde som en stor tech-virksomhed."],
-        ["6.6","Hvad skal en vært, et festlokale eller en virksomhed føle, første gang de møder PictureBox? Og hvad i jeres nuværende udtryk passer ikke til det?","Tænk på hjemmesiden, App Store-siden og jeres sociale medier, som de ser ud i dag."]]}
+      ]},
+      {nr:11, titel:"Jeres profil i dag", profil:true, hvorfor:"Branding skal ikke ændres for forandringens skyld. Her tager du stilling til, hvad der skal bevares, justeres eller ændres, så det passer til den retning og den kunde, I har valgt i fase 1.", q:[
+        ["11.1","Logo og app-ikon","Kameralukkeren i violet, som bruges i App Store og på hjemmesiden.","logo"],
+        ["11.2","Farver","Violet fra app-ikonet, som går igen på knapper og flader.","farver"],
+        ["11.3","Hovedbudskab","Overskriften på picturebox.nu. Det første, en ny besøgende læser.","<p class='pv-citat'>«Hele festen, set fra alle gæsternes telefoner.»</p>"],
+        ["11.4","Signatur","Linjen i bunden af hjemmesiden.","<p class='pv-citat'>«Hvert øjeblik, sammen»</p>"],
+        ["11.5","Tone i teksterne","Eksempler fra picturebox.nu. Korte, direkte sætninger med du til værten.","<p class='pv-citat pv-lille'>«Du følger med live, mens galleriet fyldes.» · «Klar på et minut» · «Billederne gemmes i EU»</p>"],
+        ["11.6","Navnet PictureBox","Navnet er det, folk skal huske, sige videre og søge efter. Det kan sagtens være rigtigt at lade det stå.","<p class='pv-navn'>PictureBox</p>"],
+        ["11.7","Hvor oplever I, at jeres udtryk virker i dag, og hvor virker det ikke?","Fx hjemmesiden, App Store-siden, sociale medier eller materiale til festlokaler."],
+        ["11.8","Hvad har kunder, festlokaler eller gæster sagt om, hvordan PictureBox ser ud og lyder?","Også små bemærkninger tæller, fx «den ser professionel ud» eller «den ligner alle andre apps»."],
+        ["11.9","Hvad skal en vært, et festlokale eller en virksomhed føle, første gang de møder PictureBox?","Fx tryghed, glæde, overskud eller at det ser professionelt ud."],
+        ["11.10","Hvilke kanaler bruger I aktivt i dag, og hvor tit?","Fx hjemmeside, App Store, Instagram, Facebook, LinkedIn eller TikTok."],
+        ["11.11","Hvem har lavet logo, farver og tekster, og findes der originalfiler eller en designguide?","Fx logofiler i vektorformat (SVG, AI eller PDF), farvekoder og skrifttyper."],
+        ["11.12","Hvor vigtigt er det at bevare det, eksisterende brugere og kunder kender i dag?","Jo flere der allerede kender jer, jo mere forsigtigt bør en ændring være."]]}
     ]},
   { id:"fase-3", nr:3, navn:"Digital forretning", farve:"--f3",
     titel:"Hvordan bliver det til salg, <span class='haand'>synlighed og fremdrift?</span>",
@@ -279,7 +313,8 @@ try { const g = JSON.parse(localStorage.getItem(NOEGLE) || "null"); if (g && typ
 function gem(){ try { localStorage.setItem(NOEGLE, JSON.stringify(tilstand)); } catch(e) {} }
 
 const alleSp = f => f.afsnit.flatMap(a => a.q);
-const antalSvar = f => alleSp(f).filter(([n]) => (tilstand.svar[n]||"").trim()).length;
+const besvaret = n => !!((tilstand.svar[n]||"").trim() || tilstand.svar[n+"v"]);
+const antalSvar = f => alleSp(f).filter(([n]) => besvaret(n)).length;
 const ALLE = FASER.reduce((s,f)=>s+alleSp(f).length,0);
 const total = () => FASER.reduce((s,f)=>s+antalSvar(f),0);
 const farve = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
@@ -364,6 +399,21 @@ function visStart(){
   </section>`;
 }
 
+const VALG = ["Bevar","Justér","Ændr","Ved ikke"];
+function visElement(v){
+  if (v==="logo") return `<span class="pv-ikon">${document.querySelector(".pb svg")?.outerHTML||""}</span><span class="pv-tekst">App-ikon og logo</span>`;
+  if (v==="farver") return `<span class="sw" style="background:#6D5DF6"></span><span class="sw" style="background:#8B5CF6"></span><span class="sw" style="background:linear-gradient(135deg,#6D5DF6,#8B5CF6)"></span><span class="pv-tekst">#6D5DF6 → #8B5CF6</span>`;
+  return v;
+}
+function tidligere(){
+  const vis = (n,lbl) => { const s=(tilstand.svar[n]||"").trim(); return `<div class="tl-r"><span class="tl-l">${lbl}</span><span class="${s?"":"tl-tom"}">${s?esc(s):"Ikke besvaret endnu"}</span></div>`; };
+  return `<div class="tidligere">
+    <span class="eyebrow">Det bygger på det, du har svaret</span>
+    <p>Jeres branding skal passe til den retning og den kunde, I vælger. Hold derfor det, du ser nedenfor, op mod dine egne svar:</p>
+    ${vis("1.1","PictureBox om tre år")}${vis("3.1","Primær kunde")}${vis("6.4","Tre ord")}
+    <p class="tl-valg"><b>Bevar</b> virker og genkendes. <b>Justér</b> grundidéen holder, men skal skærpes. <b>Ændr</b> passer ikke til retningen. <b>Ved ikke</b> tager vi med i samtalen.</p>
+  </div>`;
+}
 function visFase(f){
   const i = FASER.indexOf(f), naeste = FASER[i+1];
   return `<section class="fade">
@@ -378,11 +428,14 @@ function visFase(f){
       <div class="afsnit">
         <h3><span class="nr">${String(a.nr).padStart(2,"0")}</span>${a.titel}</h3>
         <p class="hvorfor">${a.hvorfor}</p>
-        ${a.q.map(([n,t,hj])=>`
-          <div class="sp ${(tilstand.svar[n]||"").trim()?"besvaret":""}">
+        ${a.profil?tidligere():""}
+        ${a.q.map(([n,t,hj,vis])=>`
+          <div class="sp ${besvaret(n)?"besvaret":""} ${vis?"sp-profil":""}">
             <span class="nr">${n}</span>
             <div style="min-width:0"><label for="s-${fid(n)}">${t}</label>${hj?`<p class="hint" id="h-${fid(n)}">${hj}</p>`:""}
-            <textarea id="s-${fid(n)}" data-n="${n}" rows="3" ${hj?`aria-describedby="h-${fid(n)}"`:""} placeholder="Skriv kort. Stikord er fine.">${esc(tilstand.svar[n]||"")}</textarea></div>
+            ${vis?`<div class="pv">${visElement(vis)}</div>
+            <div class="vchips" role="group" aria-label="${t}: bevar, justér eller ændr">${VALG.map(v=>`<button type="button" class="vchip" data-n="${n}" data-v="${v}" aria-pressed="${tilstand.svar[n+"v"]===v}">${v}</button>`).join("")}</div>`:""}
+            <textarea id="s-${fid(n)}" data-n="${n}" rows="${vis?2:3}" ${hj?`aria-describedby="h-${fid(n)}"`:""} placeholder="${vis?"Hvorfor? Og hvis noget skal ændres: hvad?":"Skriv kort. Stikord er fine."}">${esc(tilstand.svar[n]||"")}</textarea></div>
           </div>`).join("")}
       </div>`).join("")}
     <div class="statusbar">
@@ -403,15 +456,15 @@ function svarTekst(){
     t += `\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\nFASE ${f.nr} · ${f.navn.toUpperCase()}\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
     f.afsnit.forEach(a=>{
       t += `\n${a.nr}. ${a.titel.toUpperCase()}\n`;
-      a.q.forEach(([n,q])=>{ t += `\n${n} ${q}\n→ ${(tilstand.svar[n]||"").trim() || "(ikke besvaret)"}\n`; });
+      a.q.forEach(([n,q,hj,vis])=>{ const v=tilstand.svar[n+"v"]; t += `\n${n} ${q}\n${vis?`Valg: ${v||"(intet valg)"}\n`:""}→ ${(tilstand.svar[n]||"").trim() || (vis&&v?"(ingen kommentar)":"(ikke besvaret)")}\n`; });
     });
   });
   return t + `\n\nSendt via Klarhedshjulet · C Studio\n`;
 }
 function svarForhaand(){
-  return FASER.map(f=>`<h4>${f.nr} · ${f.navn}</h4>` + f.afsnit.map(a=>a.q.map(([n,q])=>{
-    const s=(tilstand.svar[n]||"").trim();
-    return `<p class="q">${n} ${q}</p><p class="a ${s?"":"tom"}">${s?esc(s):"Ikke besvaret"}</p>`;
+  return FASER.map(f=>`<h4>${f.nr} · ${f.navn}</h4>` + f.afsnit.map(a=>a.q.map(([n,q,hj,vis])=>{
+    const s=(tilstand.svar[n]||"").trim(), v=tilstand.svar[n+"v"];
+    return `<p class="q">${n} ${q}${vis&&v?` <span class="valgmaerke">${v}</span>`:""}</p><p class="a ${s?"":"tom"}">${s?esc(s):(vis&&v?"Ingen kommentar":"Ikke besvaret")}</p>`;
   }).join("")).join("")).join("");
 }
 
@@ -462,9 +515,19 @@ function kobl(){
     if(!tilstand.navn){ tilstand.navn = c.dataset.hvem; const n=document.getElementById("navn"); if(n) n.value=c.dataset.hvem; }
     gem(); document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed", x===c));
   }));
+  document.querySelectorAll(".vchip").forEach(c=>c.addEventListener("click",()=>{
+    const n=c.dataset.n, ny = tilstand.svar[n+"v"]===c.dataset.v ? "" : c.dataset.v;
+    if (ny) tilstand.svar[n+"v"]=ny; else delete tilstand.svar[n+"v"];
+    gem();
+    c.parentElement.querySelectorAll(".vchip").forEach(x=>x.setAttribute("aria-pressed", x.dataset.v===ny));
+    c.closest(".sp").classList.toggle("besvaret", besvaret(n));
+    const f = FASER.find(x=>x.id===visning()), g = document.getElementById("gemt");
+    if (f && g) g.textContent = `${antalSvar(f)} af ${alleSp(f).length} besvaret · gemt i din browser`;
+    tegnHjul();
+  }));
   document.querySelectorAll("textarea[data-n]").forEach(ta=>ta.addEventListener("input",()=>{
     tilstand.svar[ta.dataset.n] = ta.value; gem();
-    ta.closest(".sp").classList.toggle("besvaret", !!ta.value.trim());
+    ta.closest(".sp").classList.toggle("besvaret", besvaret(ta.dataset.n));
     clearTimeout(t); t = setTimeout(()=>{
       const f = FASER.find(x=>x.id===visning()), g = document.getElementById("gemt");
       if (f && g) g.textContent = `${antalSvar(f)} af ${alleSp(f).length} besvaret · gemt i din browser`;
