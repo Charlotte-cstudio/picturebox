@@ -133,6 +133,18 @@ input:focus,textarea:focus{outline:none;border-color:var(--f1);box-shadow:0 0 0 
 .tidligere .tl-valg{margin:14px 0 0;font-size:14px}
 .tidligere .tl-valg b{color:var(--blaek);font-weight:500}
 .valgmaerke{display:inline-block;margin-left:6px;padding:1px 9px;border-radius:999px;background:var(--blaek);color:var(--papir);font-size:12px;font-weight:500}
+.inspboks{margin-top:22px;padding:24px;border:1.5px dashed var(--f1);border-radius:10px;background:color-mix(in srgb,var(--kort) 70%,transparent)}
+.insp-top{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;margin-bottom:20px}
+.insp-tag{display:inline-flex;padding:6px 13px;border-radius:999px;border:1.5px dashed var(--f2);color:var(--f2);font-size:11.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.insp-top .lille{flex:1 1 280px}
+.ivid-grid{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:640px){.ivid-grid{grid-template-columns:minmax(0,1fr)}}
+.ivid{margin:0;display:flex;flex-direction:column;gap:12px;min-width:0}
+.ivid-ramme{width:100%;max-width:100%;border-radius:10px;overflow:hidden;background:#1A1814;box-shadow:0 14px 30px rgba(26,24,20,.18)}
+.ivid-ramme video{width:100%;height:100%;display:block;object-fit:cover;background:#1A1814}
+.ivid figcaption{display:flex;flex-direction:column;gap:4px}
+.ivid figcaption b{font-family:var(--display);font-weight:500;font-size:20px;line-height:1.25}
+.ivid figcaption span:last-child{font-size:14.5px;color:var(--graa)}
 .hint{margin:-4px 0 12px;font-size:14px;line-height:1.5;color:var(--lysgraa);padding-left:12px;border-left:2px solid var(--sand)}
 .statusbar{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;margin-top:48px;padding-top:22px;border-top:1px solid var(--linje)}
 .gemt{font-size:13px;color:var(--lysgraa)}
@@ -264,7 +276,10 @@ const FASER = [
         ["11.9","Hvad skal en vært, et festlokale eller en virksomhed føle, første gang de møder PictureBox?","Fx tryghed, glæde, overskud eller at det ser professionelt ud."],
         ["11.10","Hvilke kanaler bruger I aktivt i dag, og hvor tit?","Fx hjemmeside, App Store, Instagram, Facebook, LinkedIn eller TikTok."],
         ["11.11","Hvem har lavet logo, farver og tekster, og findes der originalfiler eller en designguide?","Fx logofiler i vektorformat (SVG, AI eller PDF), farvekoder og skrifttyper."],
-        ["11.12","Hvor vigtigt er det at bevare det, eksisterende brugere og kunder kender i dag?","Jo flere der allerede kender jer, jo mere forsigtigt bør en ændring være."]]}
+        ["11.12","Hvor vigtigt er det at bevare det, eksisterende brugere og kunder kender i dag?","Jo flere der allerede kender jer, jo mere forsigtigt bør en ændring være."]]},
+      {nr:12, titel:"Inspiration til samtalen", insp:true, hvorfor:"Svar først på spørgsmålene ovenfor med dine egne ord. Se derefter de to videoer, og fortæl, hvad du mærker.", q:[
+        ["12.1","Markedsføringsvideoen: Hvad mærker du, når du ser den? Hvad passer til PictureBox, og hvad gør ikke?","Tænk på, om en vært eller et festlokale ville kunne genkende sig selv i den."],
+        ["12.2","Brandingvideoen: Fortæller den det, PictureBox står for og skaber? Hvad mangler, og hvad er for meget?","Animationen viser alle gæsternes billeder, der samler sig til ét øjeblik i logoet."]]}
     ]},
   { id:"fase-3", nr:3, navn:"Digital forretning", farve:"--f3",
     titel:"Hvordan bliver det til salg, <span class='haand'>synlighed og fremdrift?</span>",
@@ -405,6 +420,19 @@ function visElement(v){
   if (v==="farver") return `<span class="sw" style="background:#6D5DF6"></span><span class="sw" style="background:#8B5CF6"></span><span class="sw" style="background:linear-gradient(135deg,#6D5DF6,#8B5CF6)"></span><span class="pv-tekst">#6D5DF6 → #8B5CF6</span>`;
   return v;
 }
+function inspBoks(){
+  const kort=(src,poster,ratio,lbl,titel,tekst)=>`<figure class="ivid">
+      <div class="ivid-ramme" style="aspect-ratio:${ratio}"><video controls playsinline preload="none" poster="${poster}"><source src="${src}" type="video/mp4">Din browser kan ikke afspille videoen.</video></div>
+      <figcaption><span class="eyebrow">${lbl}</span><b>${titel}</b><span>${tekst}</span></figcaption>
+    </figure>`;
+  return `<div class="inspboks">
+    <div class="insp-top"><span class="insp-tag">Inspiration · C Studio</span><span class="lille">Hurtigt lavet med AI for at vise en følelse. Personerne er genererede, og der er fejl i nogle tekster. Det er ikke et færdigt forslag.</span></div>
+    <div class="ivid-grid">
+      ${kort("video/markedsforing.mp4","video/markedsforing.jpg","9/16","Markedsføring","Du nyder festen. Gæsterne fanger minderne.","Taler til værtens behov: at være med i festen i stedet for at stå bag kameraet. 32 sekunder med lyd.")}
+      ${kort("video/branding.mp4","video/branding.jpg","1/1","Branding","Fortællingen bag logoet","Alle gæsternes billeder samler sig til ét øjeblik, og bliver til PictureBox. 11 sekunder uden lyd.")}
+    </div>
+  </div>`;
+}
 function tidligere(){
   const vis = (n,lbl) => { const s=(tilstand.svar[n]||"").trim(); return `<div class="tl-r"><span class="tl-l">${lbl}</span><span class="${s?"":"tl-tom"}">${s?esc(s):"Ikke besvaret endnu"}</span></div>`; };
   return `<div class="tidligere">
@@ -428,7 +456,7 @@ function visFase(f){
       <div class="afsnit">
         <h3><span class="nr">${String(a.nr).padStart(2,"0")}</span>${a.titel}</h3>
         <p class="hvorfor">${a.hvorfor}</p>
-        ${a.profil?tidligere():""}
+        ${a.profil?tidligere():""}${a.insp?inspBoks():""}
         ${a.q.map(([n,t,hj,vis])=>`
           <div class="sp ${besvaret(n)?"besvaret":""} ${vis?"sp-profil":""}">
             <span class="nr">${n}</span>
